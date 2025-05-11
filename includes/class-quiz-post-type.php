@@ -10,3 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+class Quiz_Post_Type {
+
+	/**
+	 * Initialize the class
+	 */
+	public function init() {
+	}
+
+}
