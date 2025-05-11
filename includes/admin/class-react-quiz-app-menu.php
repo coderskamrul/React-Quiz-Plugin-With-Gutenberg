@@ -1,0 +1,4 @@
+<?php
+/**
+ * Admin menu class
+ */

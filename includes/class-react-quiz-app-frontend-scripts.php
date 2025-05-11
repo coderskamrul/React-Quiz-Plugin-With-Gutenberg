@@ -1,0 +1,4 @@
+<?php
+/**
+ * Frontend scripts class
+ */

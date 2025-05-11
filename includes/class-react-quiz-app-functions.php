@@ -1,0 +1,4 @@
+<?php
+/**
+ * Plugin functions class
+ */
