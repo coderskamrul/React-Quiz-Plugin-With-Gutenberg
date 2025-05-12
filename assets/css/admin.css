@@ -62,3 +62,96 @@
   border-radius: 4px;
   border: 1px dashed #ddd;
 }
+
+/* Quiz Editor */
+.quiz-editor {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.quiz-editor-questions {
+  margin-top: 20px;
+}
+
+.question-editor {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.question-text-editor {
+  margin-bottom: 15px;
+}
+
+.question-text-editor textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.question-answers-editor {
+  margin-top: 15px;
+}
+
+.answer-editor {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.answer-editor input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  margin-left: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.quiz-editor-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.save-message {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #e6f7ff;
+  color: #0066cc;
+}
+
+/* Settings */
+.settings-container {
+  padding: 20px;
+}
+
+.settings-form {
+  max-width: 600px;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.setting-item {
+  margin-bottom: 15px;
+}
+
+.settings-actions {
+  margin-top: 20px;
+}
