@@ -1,1 +1,64 @@
 /* Admin Styles */
+
+/* Dashboard */
+.dashboard-container {
+  padding: 20px;
+}
+
+.dashboard-content {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.quiz-list-container {
+  flex: 0 0 300px;
+}
+
+.quiz-editor-container {
+  flex: 1;
+}
+
+.quiz-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.quiz-list-item {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.quiz-list-item:last-child {
+  border-bottom: none;
+}
+
+.quiz-list-item:hover {
+  background-color: #f5f5f5;
+}
+
+.quiz-list-item.selected {
+  background-color: #e6f7ff;
+  font-weight: bold;
+}
+
+.quiz-actions {
+  margin-top: 15px;
+}
+
+.no-quiz-selected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  border: 1px dashed #ddd;
+}
