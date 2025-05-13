@@ -209,3 +209,60 @@
   text-align: center;
   color: #666;
 }
+
+/* Quiz Block Preview */
+.quiz-block-preview-detailed {
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.quiz-preview-questions {
+  margin-top: 15px;
+}
+
+.quiz-preview-question {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.quiz-preview-question-text {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.quiz-preview-answers {
+  margin-left: 20px;
+}
+
+.quiz-preview-answer {
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.quiz-preview-correct {
+  color: #0a0;
+  font-weight: 500;
+}
+
+.quiz-preview-correct-indicator {
+  color: #0a0;
+  font-weight: bold;
+}
+
+.quiz-preview-more {
+  font-style: italic;
+  color: #666;
+  margin-top: 10px;
+}
+
+.quiz-preview-note {
+  margin-top: 15px;
+  font-style: italic;
+  color: #666;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
