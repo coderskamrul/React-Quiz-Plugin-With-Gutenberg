@@ -1,7 +1,7 @@
 <?php
 /**
  * Quiz Post Type Class
- * 
+ *
  * Handles the registration of the quiz custom post type and related meta boxes.
  */
 
@@ -16,6 +16,14 @@ class Quiz_Post_Type {
 	 * Initialize the class
 	 */
 	public function init() {
+		// Register the custom post type
+		add_action( 'init', array( $this, 'register_post_type' ) );
+
+		// Add meta boxes
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+
+		// Save post meta
+		add_action( 'save_post', array( $this, 'save_post_meta' ), 10, 2 );
 	}
 
 	/**
@@ -36,7 +44,7 @@ class Quiz_Post_Type {
 			'search_items'       => __( 'Search Quizzes', 'react-quiz-app' ),
 			'parent_item_colon'  => __( 'Parent Quizzes:', 'react-quiz-app' ),
 			'not_found'          => __( 'No quizzes found.', 'react-quiz-app' ),
-			'not_found_in_trash' => __( 'No quizzes found in Trash.', 'react-quiz-app' )
+			'not_found_in_trash' => __( 'No quizzes found in Trash.', 'react-quiz-app' ),
 		);
 
 		$args = array(
@@ -76,7 +84,7 @@ class Quiz_Post_Type {
 
 	/**
 	 * Render the questions meta box
-	 * 
+	 *
 	 * @param WP_Post $post The post object.
 	 */
 	public function render_questions_meta_box( $post ) {
@@ -91,7 +99,7 @@ class Quiz_Post_Type {
 					'question' => '',
 					'answers'  => array( '', '', '', '' ),
 					'correct'  => 0,
-				)
+				),
 			);
 		}
 
@@ -127,7 +135,7 @@ class Quiz_Post_Type {
 								<input 
 									type="text" 
 									name="quiz_questions[<?php echo esc_attr( $index ); ?>][answers][<?php echo esc_attr( $i ); ?>]" 
-									value="<?php echo esc_attr( isset( $question['answers'][$i] ) ? $question['answers'][$i] : '' ); ?>" 
+									value="<?php echo esc_attr( isset( $question['answers'][ $i ] ) ? $question['answers'][ $i ] : '' ); ?>" 
 									class="widefat"
 									placeholder="<?php printf( __( 'Answer %d', 'react-quiz-app' ), $i + 1 ); ?>"
 								>
@@ -259,7 +267,7 @@ class Quiz_Post_Type {
 
 	/**
 	 * Save the quiz questions meta data
-	 * 
+	 *
 	 * @param int     $post_id The post ID.
 	 * @param WP_Post $post    The post object.
 	 */
@@ -289,25 +297,25 @@ class Quiz_Post_Type {
 		// Save the quiz questions
 		if ( isset( $_POST['quiz_questions'] ) ) {
 			$questions = array();
-			
+
 			foreach ( $_POST['quiz_questions'] as $index => $question_data ) {
 				if ( empty( $question_data['question'] ) ) {
 					continue;
 				}
-				
+
 				$question = array(
 					'question' => sanitize_textarea_field( $question_data['question'] ),
 					'answers'  => array(),
 					'correct'  => intval( $question_data['correct'] ),
 				);
-				
+
 				foreach ( $question_data['answers'] as $i => $answer ) {
-					$question['answers'][$i] = sanitize_text_field( $answer );
+					$question['answers'][ $i ] = sanitize_text_field( $answer );
 				}
-				
+
 				$questions[] = $question;
 			}
-			
+
 			update_post_meta( $post_id, '_quiz_questions', $questions );
 		}
 	}

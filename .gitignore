@@ -3,9 +3,14 @@
 # dependencies
 /node_modules
 
-# next.js
-/.next/
-/out/
+# build files
+/assets/js/backend/blocks.js
+/assets/js/backend/blocks.js.map
+/assets/js/backend/quiz-admin.js
+/assets/js/backend/quiz-admin.js.map
+/assets/js/backend/quiz-frontend.js
+/assets/js/backend/quiz-frontend.js.map
+
 
 # production
 /build

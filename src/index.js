@@ -1,5 +1,6 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
+import { QuizContextProvider } from "./contexts/QuizContext"
 
 // Admin Pages
 import Dashboard from "./pages/Dashboard"
@@ -31,9 +32,16 @@ const initAdminApp = () => {
 
     root.render(
       <React.StrictMode>
+        <QuizContextProvider>
           <PageComponent />
+        </QuizContextProvider>
       </React.StrictMode>,
     )
   }
 }
 
+// Initialize the app
+if (document.getElementById("react-quiz-app-admin")) {
+  // Admin app
+  initAdminApp()
+}

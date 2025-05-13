@@ -22,6 +22,72 @@ registerBlockType("react-quiz-app/quiz-block", {
     const [error, setError] = useState(null)
     const [debugInfo, setDebugInfo] = useState(null)
 
+    // Function to test the REST API
+    const testRestApi = async () => {
+      try {
+        setLoading(true)
+        setError(null)
+
+        // Test the debug endpoint
+        const response = await fetch(`${window.wpApiSettings?.root || "/wp-json/"}react-quiz-app/v1/debug`)
+        const data = await response.json()
+
+        setDebugInfo({
+          status: data.status,
+          message: data.message,
+          time: data.time,
+          apiRoot: window.wpApiSettings?.root || "/wp-json/",
+          hasNonce: !!window.wpApiSettings?.nonce,
+        })
+
+        setLoading(false)
+      } catch (error) {
+        console.error("Error testing REST API:", error)
+        setDebugInfo({
+          error: error.message,
+          apiRoot: window.wpApiSettings?.root || "/wp-json/",
+          hasNonce: !!window.wpApiSettings?.nonce,
+        })
+        setLoading(false)
+      }
+    }
+
+    useEffect(() => {
+      fetchQuizzes()
+      testRestApi() // Test the REST API on component mount
+    }, [])
+
+    const fetchQuizzes = async () => {
+      try {
+        setLoading(true)
+        setError(null)
+
+        // Use the REST API to fetch quizzes
+        const response = await fetch(`${window.wpApiSettings?.root || "/wp-json/"}react-quiz-app/v1/quizzes`, {
+          headers: {
+            "X-WP-Nonce": window.wpApiSettings?.nonce || "",
+            "Content-Type": "application/json",
+          },
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`)
+        }
+
+        const data = await response.json()
+
+        if (!Array.isArray(data)) {
+          throw new Error("Invalid response format. Expected an array.")
+        }
+
+        setQuizzes(data)
+        setLoading(false)
+      } catch (error) {
+        console.error("Error fetching quizzes:", error)
+        setError(error.message || "Failed to fetch quizzes")
+        setLoading(false)
+      }
+    }
 
     const blockProps = useBlockProps({
       className: "react-quiz-app-block-editor",
@@ -109,6 +175,7 @@ registerBlockType("react-quiz-app/quiz-block", {
   },
 
   save: () => {
+    // Dynamic block, rendering is handled by PHP
     return null
   },
 })

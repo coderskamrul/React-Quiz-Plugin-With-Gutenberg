@@ -155,3 +155,57 @@
 .settings-actions {
   margin-top: 20px;
 }
+
+/* Help */
+.help-container {
+  padding: 20px;
+}
+
+.help-content {
+  max-width: 800px;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.help-section {
+  margin-bottom: 30px;
+}
+
+.help-section h2 {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+/* Block Editor */
+.react-quiz-app-block-editor {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.quiz-block-preview {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+}
+
+.quiz-block-note {
+  font-style: italic;
+  color: #666;
+}
+
+.quiz-block-placeholder {
+  padding: 15px;
+  background-color: #fff;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+  text-align: center;
+  color: #666;
+}

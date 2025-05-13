@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: React Quiz App
+ * Plugin Name: React Quiz App Dev
  * Plugin URI: https://example.com/react-quiz-app
  * Description: A WordPress plugin that allows admins to create multiple-choice quizzes and embed them using a Gutenberg block.
  * Version: 1.0.0
- * Author: Your Name
- * Author URI: https://kamrul.com
+ * Author: Kamrul Hasan
+ * Author URI: https://example.com
  * Text Domain: react-quiz-app
  * Domain Path: /languages
  * License: GPL v2 or later
@@ -40,10 +40,11 @@ function react_quiz_app_init() {
 }
 
 /**
- * Shortcode to display the quiz app
+ * Register the Gutenberg block
  *
- * @param array $atts Shortcode attributes.
- * @return string HTML output for the quiz app.
+ * @param array $atts Block attributes.
+ *
+ * @return mixed
  */
 function react_quiz_app_shortcode( $atts ) {
 	$atts = shortcode_atts(
@@ -63,9 +64,7 @@ function react_quiz_app_shortcode( $atts ) {
 	return '<div id="react-quiz-app-' . $quiz_id . '" class="react-quiz-app" data-quiz-id="' . $quiz_id . '"></div>';
 }
 
-/**
- * Enqueue scripts and styles
- */
+// Initialize the plugin.
 add_action( 'plugins_loaded', 'react_quiz_app_init' );
 
 /**
@@ -81,22 +80,16 @@ function react_quiz_app_activate() {
  * Register deactivation hook
  */
 register_deactivation_hook( __FILE__, 'react_quiz_app_deactivate' );
-
-/**
- * Deactivate the plugin
- *
- * @return void
- */
 function react_quiz_app_deactivate() {
-	// Flush rewrite rules on deactivation
+	// Flush rewrite rules on deactivation.
 	flush_rewrite_rules();
 }
 
 /**
- * Enqueue admin scripts and styles
+ * Add REST API nonce to admin
  */
 function react_quiz_app_admin_scripts() {
-	// Localize the script with new data
+	// Localize the script with new data.
 	$script_data = array(
 		'root'            => esc_url_raw( rest_url() ),
 		'nonce'           => wp_create_nonce( 'wp_rest' ),
