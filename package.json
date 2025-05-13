@@ -10,7 +10,7 @@
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
     "start": "npx cross-env NODE_ENV=development webpack --config=webpack.config.js --watch",
-    "dev": "npx cross-env NODE_ENV=development wp-scripts start",
+    "dev": "npx cross-env NODE_ENV=development wp-scripts start"
   },
   "prettier": "@wordpress/prettier-config",
   "author": "Kamrul Hasan",

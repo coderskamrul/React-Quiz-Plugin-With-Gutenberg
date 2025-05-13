@@ -69,9 +69,9 @@ class React_Quiz_App_Menu {
 	 */
 	public function enqueue_admin_scripts( $hook ) {
 		// Only load on plugin pages
-		if ( strpos( $hook, 'react-quiz-app' ) === false ) {
-			return;
-		}
+		// if ( strpos( $hook, 'react-quiz-app' ) === false ) {
+		// 	return;
+		// }
 
 		// Enqueue admin scripts.
 		wp_enqueue_script(
@@ -95,7 +95,7 @@ class React_Quiz_App_Menu {
 
 		// Enqueue admin styles.
 		wp_enqueue_style(
-			'react-quiz-app-admin',
+			'react-quiz-app-admin-style',
 			REACT_QUIZ_APP_PLUGIN_URL . 'assets/css/admin.css',
 			array(),
 			REACT_QUIZ_APP_VERSION

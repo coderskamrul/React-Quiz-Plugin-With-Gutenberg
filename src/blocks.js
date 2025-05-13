@@ -1,12 +1,7 @@
+'use client';
+
 import { registerBlockType } from '@wordpress/blocks';
-import {
-	SelectControl,
-	Button,
-	Spinner,
-	Notice,
-	Panel,
-	PanelBody,
-} from '@wordpress/components';
+import { SelectControl, Button, Spinner, Notice } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import { useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
@@ -30,6 +25,8 @@ registerBlockType( 'react-quiz-app/quiz-block', {
 		const [ debugInfo, setDebugInfo ] = useState( null );
 		const [ selectedQuiz, setSelectedQuiz ] = useState( null );
 		const [ loadingQuiz, setLoadingQuiz ] = useState( false );
+		const [ currentQuestionIndex, setCurrentQuestionIndex ] = useState( 0 );
+		const [ showAllQuestions, setShowAllQuestions ] = useState( false );
 
 		// Function to test the REST API
 		const testRestApi = async () => {
@@ -162,83 +159,208 @@ registerBlockType( 'react-quiz-app/quiz-block', {
 			} ) ),
 		];
 
-		// Render a preview of the quiz
+		const handleNextQuestion = () => {
+			if (
+				selectedQuiz &&
+				currentQuestionIndex < selectedQuiz.questions.length - 1
+			) {
+				setCurrentQuestionIndex( currentQuestionIndex + 1 );
+			}
+		};
+
+		const handlePrevQuestion = () => {
+			if ( currentQuestionIndex > 0 ) {
+				setCurrentQuestionIndex( currentQuestionIndex - 1 );
+			}
+		};
+
+		const toggleViewMode = () => {
+			setShowAllQuestions( ! showAllQuestions );
+		};
+
+		// Render a preview of the quiz that matches the frontend
 		const renderQuizPreview = () => {
 			if ( ! selectedQuiz ) return null;
 
 			return (
-				<div className="quiz-block-preview-detailed">
-					<h3>{ selectedQuiz.title }</h3>
+				<div className="quiz-container preview-mode">
+					<h2 className="quiz-title">{ selectedQuiz.title }</h2>
 
-					<div className="quiz-preview-questions">
-						{ selectedQuiz.questions
-							.slice( 0, 3 )
-							.map( ( question, index ) => (
-								<div
-									key={ index }
-									className="quiz-preview-question"
-								>
-									<p className="quiz-preview-question-text">
-										<strong>
-											{ __(
-												'Question',
-												'react-quiz-app'
-											) }{ ' ' }
-											{ index + 1 }:
-										</strong>{ ' ' }
-										{ question.text }
-									</p>
-									<div className="quiz-preview-answers">
-										{ question.answers.map(
+					<div className="quiz-controls">
+						<button
+							type="button"
+							className="quiz-view-toggle"
+							onClick={ toggleViewMode }
+						>
+							{ showAllQuestions
+								? __(
+										'Show One Question at a Time',
+										'react-quiz-app'
+								  )
+								: __( 'Show All Questions', 'react-quiz-app' ) }
+						</button>
+					</div>
+
+					{ showAllQuestions ? (
+						<div className="quiz-questions-all">
+							{ selectedQuiz.questions.map(
+								( question, index ) => (
+									<div
+										key={ index }
+										className="quiz-question"
+									>
+										<h3 className="question-text">
+											{ question.text }
+										</h3>
+
+										<div className="question-answers">
+											{ question.answers.map(
+												( answer, answerIndex ) => (
+													<div
+														key={ answerIndex }
+														className={ `answer-option ${
+															answerIndex ===
+															question.correctAnswer
+																? 'preview-correct'
+																: ''
+														}` }
+													>
+														<input
+															type="radio"
+															id={ `preview-question-${ index }-answer-${ answerIndex }` }
+															name={ `preview-question-${ index }` }
+															value={
+																answerIndex
+															}
+															checked={
+																answerIndex ===
+																question.correctAnswer
+															}
+															readOnly
+														/>
+														<label
+															htmlFor={ `preview-question-${ index }-answer-${ answerIndex }` }
+														>
+															{ answer }
+														</label>
+													</div>
+												)
+											) }
+										</div>
+									</div>
+								)
+							) }
+						</div>
+					) : (
+						<div className="quiz-questions-single">
+							{ selectedQuiz.questions.length > 0 && (
+								<div className="quiz-question">
+									<h3 className="question-text">
+										{
+											selectedQuiz.questions[
+												currentQuestionIndex
+											].text
+										}
+									</h3>
+
+									<div className="question-answers">
+										{ selectedQuiz.questions[
+											currentQuestionIndex
+										].answers.map(
 											( answer, answerIndex ) => (
 												<div
 													key={ answerIndex }
-													className="quiz-preview-answer"
+													className={ `answer-option ${
+														answerIndex ===
+														selectedQuiz.questions[
+															currentQuestionIndex
+														].correctAnswer
+															? 'preview-correct'
+															: ''
+													}` }
 												>
-													<span
-														className={
+													<input
+														type="radio"
+														id={ `preview-question-${ currentQuestionIndex }-answer-${ answerIndex }` }
+														name={ `preview-question-${ currentQuestionIndex }` }
+														value={ answerIndex }
+														checked={
 															answerIndex ===
-															question.correctAnswer
-																? 'quiz-preview-correct'
-																: ''
+															selectedQuiz
+																.questions[
+																currentQuestionIndex
+															].correctAnswer
 														}
+														readOnly
+													/>
+													<label
+														htmlFor={ `preview-question-${ currentQuestionIndex }-answer-${ answerIndex }` }
 													>
-														{ String.fromCharCode(
-															65 + answerIndex
-														) }
-														. { answer }
-														{ answerIndex ===
-															question.correctAnswer && (
-															<span className="quiz-preview-correct-indicator">
-																{ ' ' }
-																✓
-															</span>
-														) }
-													</span>
+														{ answer }
+													</label>
 												</div>
 											)
 										) }
 									</div>
+
+									<div className="quiz-navigation">
+										<button
+											type="button"
+											className="quiz-nav-button"
+											onClick={ handlePrevQuestion }
+											disabled={
+												currentQuestionIndex === 0
+											}
+										>
+											{ __(
+												'Previous',
+												'react-quiz-app'
+											) }
+										</button>
+
+										<span className="quiz-progress">
+											{ __(
+												'Question',
+												'react-quiz-app'
+											) }{ ' ' }
+											{ currentQuestionIndex + 1 }{ ' ' }
+											{ __( 'of', 'react-quiz-app' ) }{ ' ' }
+											{ selectedQuiz.questions.length }
+										</span>
+
+										<button
+											type="button"
+											className="quiz-nav-button"
+											onClick={ handleNextQuestion }
+											disabled={
+												currentQuestionIndex ===
+												selectedQuiz.questions.length -
+													1
+											}
+										>
+											{ __( 'Next', 'react-quiz-app' ) }
+										</button>
+									</div>
 								</div>
-							) ) }
+							) }
+						</div>
+					) }
 
-						{ selectedQuiz.questions.length > 3 && (
-							<p className="quiz-preview-more">
-								{ __( 'And', 'react-quiz-app' ) }{ ' ' }
-								{ selectedQuiz.questions.length - 3 }{ ' ' }
-								{ __( 'more questions...', 'react-quiz-app' ) }
-							</p>
-						) }
+					<div className="quiz-submit">
+						<button
+							type="button"
+							className="quiz-submit-button"
+							disabled
+						>
+							{ __( 'Submit Quiz', 'react-quiz-app' ) }
+						</button>
+						<p className="quiz-preview-note">
+							{ __(
+								'This is a preview. The submit button will be active on the frontend.',
+								'react-quiz-app'
+							) }
+						</p>
 					</div>
-
-					<p className="quiz-preview-note">
-						{ __(
-							'This quiz will be displayed to users with',
-							'react-quiz-app'
-						) }{ ' ' }
-						{ selectedQuiz.questions.length }{ ' ' }
-						{ __( 'questions.', 'react-quiz-app' ) }
-					</p>
 				</div>
 			);
 		};
@@ -344,36 +466,26 @@ registerBlockType( 'react-quiz-app/quiz-block', {
 							/>
 
 							{ quizId ? (
-								<Panel>
-									<PanelBody
-										title={ __(
-											'Quiz Preview',
-											'react-quiz-app'
-										) }
-										initialOpen={ true }
+								loadingQuiz ? (
+									<div
+										style={ {
+											display: 'flex',
+											alignItems: 'center',
+											gap: '10px',
+											padding: '20px 0',
+										} }
 									>
-										{ loadingQuiz ? (
-											<div
-												style={ {
-													display: 'flex',
-													alignItems: 'center',
-													gap: '10px',
-													padding: '10px 0',
-												} }
-											>
-												<Spinner />
-												<p>
-													{ __(
-														'Loading quiz details...',
-														'react-quiz-app'
-													) }
-												</p>
-											</div>
-										) : (
-											renderQuizPreview()
-										) }
-									</PanelBody>
-								</Panel>
+										<Spinner />
+										<p>
+											{ __(
+												'Loading quiz details...',
+												'react-quiz-app'
+											) }
+										</p>
+									</div>
+								) : (
+									renderQuizPreview()
+								)
 							) : (
 								<p className="quiz-block-placeholder">
 									{ __(
