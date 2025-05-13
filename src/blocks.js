@@ -1,5 +1,3 @@
-'use client';
-
 import { registerBlockType } from '@wordpress/blocks';
 import {
 	SelectControl,

@@ -15,7 +15,7 @@ class React_Quiz_App_REST_Controller {
 	 * Register REST API routes
 	 */
 	public function register_routes() {
-		// Debug endpoint to test REST API functionality
+		// Debug endpoint to test REST API functionality.
 		register_rest_route(
 			'react-quiz-app/v1',
 			'/debug',
@@ -34,23 +34,29 @@ class React_Quiz_App_REST_Controller {
 			)
 		);
 
+		// Get quizzes
+		// This endpoint is for users to fetch a list of quizzes.
+		// It returns the quiz ID and title.
 		register_rest_route(
 			'react-quiz-app/v1',
 			'/quizzes',
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'get_quizzes' ),
-				'permission_callback' => '__return_true', // Allow anyone to view quizzes
+				'permission_callback' => '__return_true',
 			)
 		);
 
+		// Get quiz
+		// This endpoint is for users to fetch quiz data.
+		// It returns the quiz title, questions, and answers.
 		register_rest_route(
 			'react-quiz-app/v1',
 			'/quizzes/(?P<id>\d+)',
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'get_quiz' ),
-				'permission_callback' => '__return_true', // Allow anyone to view a quiz
+				'permission_callback' => '__return_true',
 				'args'                => array(
 					'id' => array(
 						'validate_callback' => function ( $param ) {
@@ -61,6 +67,9 @@ class React_Quiz_App_REST_Controller {
 			)
 		);
 
+		// Update quiz
+		// This endpoint is for admins to update quiz data.
+		// It allows admins to modify the quiz questions and answers.
 		register_rest_route(
 			'react-quiz-app/v1',
 			'/quizzes/(?P<id>\d+)',
@@ -80,13 +89,15 @@ class React_Quiz_App_REST_Controller {
 			)
 		);
 
+		// Save quiz result
+		// This endpoint is for users to submit their quiz results.
 		register_rest_route(
 			'react-quiz-app/v1',
 			'/quizzes/(?P<id>\d+)/results',
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'save_result' ),
-				'permission_callback' => '__return_true', // Allow anyone to submit results
+				'permission_callback' => '__return_true',
 				'args'                => array(
 					'id'      => array(
 						'validate_callback' => function ( $param ) {
@@ -107,6 +118,8 @@ class React_Quiz_App_REST_Controller {
 			)
 		);
 
+		// Get quiz results
+		// This endpoint is for admins to view results of all users.
 		register_rest_route(
 			'react-quiz-app/v1',
 			'/quizzes/(?P<id>\d+)/results',
@@ -128,7 +141,7 @@ class React_Quiz_App_REST_Controller {
 	}
 
 	/**
-	 * Get quizzes
+	 * Get quizzes.
 	 */
 	public function get_quizzes() {
 		$args = array(
@@ -152,7 +165,11 @@ class React_Quiz_App_REST_Controller {
 	}
 
 	/**
-	 * Get quiz
+	 * Get quiz data.
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 * @return WP_REST_Response|WP_Error The response object or error.
+	 * @since 1.0.0
 	 */
 	public function get_quiz( $request ) {
 		$quiz_id = $request['id'];
@@ -163,14 +180,14 @@ class React_Quiz_App_REST_Controller {
 			return new WP_Error( 'quiz_not_found', __( 'Quiz not found', 'react-quiz-app' ), array( 'status' => 404 ) );
 		}
 
-		// Get quiz questions from post meta
+		// Get quiz questions from post meta.
 		$questions = get_post_meta( $quiz_id, '_quiz_questions', true );
 
 		if ( ! $questions ) {
 			$questions = array();
 		}
 
-		// Format questions for the frontend
+		// Format questions for the frontend.
 		$formatted_questions = array();
 		foreach ( $questions as $index => $question ) {
 			$formatted_questions[] = array(
@@ -190,7 +207,11 @@ class React_Quiz_App_REST_Controller {
 	}
 
 	/**
-	 * Update quiz
+	 * Update quiz data.
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 * @return WP_REST_Response|WP_Error The response object or error.
+	 * @since 1.0.0
 	 */
 	public function update_quiz( $request ) {
 		$quiz_id   = $request['id'];
@@ -200,7 +221,7 @@ class React_Quiz_App_REST_Controller {
 			return new WP_Error( 'invalid_data', __( 'Invalid quiz data', 'react-quiz-app' ), array( 'status' => 400 ) );
 		}
 
-		// Format questions for post meta
+		// Format questions for post meta.
 		$formatted_questions = array();
 		foreach ( $questions as $index => $question ) {
 			$formatted_questions[] = array(
@@ -210,7 +231,7 @@ class React_Quiz_App_REST_Controller {
 			);
 		}
 
-		// Update post meta
+		// Update post meta.
 		$result = update_post_meta( $quiz_id, '_quiz_questions', $formatted_questions );
 
 		if ( ! $result ) {
@@ -227,11 +248,15 @@ class React_Quiz_App_REST_Controller {
 
 	/**
 	 * Save quiz result
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 * @return WP_REST_Response|WP_Error The response object or error.
+	 * @since 1.0.0
 	 */
 	public function save_result( $request ) {
 		global $wpdb;
 
-		// Temporarily disable showing database errors
+		// Temporarily disable showing database errors.
 		$wpdb->hide_errors();
 
 		$quiz_id = $request['id'];
@@ -239,12 +264,12 @@ class React_Quiz_App_REST_Controller {
 		$score   = $request->get_param( 'score' );
 		$answers = $request->get_param( 'answers' );
 
-		// Check if score parameter exists (not if it's truthy)
+		// Check if score parameter exists (not if it's truthy).
 		if ( ! isset( $request['score'] ) || ! is_array( $answers ) ) {
 			return new WP_Error( 'invalid_data', __( 'Invalid result data', 'react-quiz-app' ), array( 'status' => 400 ) );
 		}
 
-		// Log the received data for debugging
+		// Log the received data for debugging.
 		error_log(
 			'Quiz submission data: ' . print_r(
 				array(
@@ -257,7 +282,7 @@ class React_Quiz_App_REST_Controller {
 			)
 		);
 
-		// Make sure the database table exists
+		// Make sure the database table exists.
 		require_once REACT_QUIZ_APP_PLUGIN_DIR . 'includes/class-react-quiz-app-install.php';
 		React_Quiz_App_Install::check_tables();
 
@@ -267,7 +292,7 @@ class React_Quiz_App_REST_Controller {
 			return new WP_Error( 'save_failed', __( 'Failed to save quiz result', 'react-quiz-app' ), array( 'status' => 500 ) );
 		}
 
-		// Get the quiz data to include in the response
+		// Get the quiz data to include in the response.
 		$quiz      = get_post( $quiz_id );
 		$questions = get_post_meta( $quiz_id, '_quiz_questions', true );
 
@@ -275,7 +300,7 @@ class React_Quiz_App_REST_Controller {
 			$questions = array();
 		}
 
-		// Format questions for the frontend
+		// Format questions for the frontend.
 		$formatted_questions = array();
 		foreach ( $questions as $index => $question ) {
 			$formatted_questions[] = array(
@@ -285,7 +310,7 @@ class React_Quiz_App_REST_Controller {
 			);
 		}
 
-		// Calculate correct answers
+		// Calculate correct answers.
 		$correct_count = 0;
 		foreach ( $answers as $question_index => $answer_index ) {
 			if ( isset( $formatted_questions[ $question_index ] ) &&
@@ -294,6 +319,7 @@ class React_Quiz_App_REST_Controller {
 			}
 		}
 
+		// Log the correct count for debugging.
 		return rest_ensure_response(
 			array(
 				'success'        => true,
@@ -312,6 +338,10 @@ class React_Quiz_App_REST_Controller {
 
 	/**
 	 * Get quiz results
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 * @return WP_REST_Response|WP_Error The response object or error.
+	 * @since 1.0.0
 	 */
 	public function get_results( $request ) {
 		$quiz_id = $request['id'];

@@ -16,13 +16,13 @@ class Quiz_Post_Type {
 	 * Initialize the class
 	 */
 	public function init() {
-		// Register the custom post type
+		// Register the custom post type.
 		add_action( 'init', array( $this, 'register_post_type' ) );
 
-		// Add meta boxes
+		// Add meta boxes.
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 
-		// Save post meta
+		// Save post meta.
 		add_action( 'save_post', array( $this, 'save_post_meta' ), 10, 2 );
 	}
 
@@ -103,7 +103,7 @@ class Quiz_Post_Type {
 			);
 		}
 
-		// Output the questions form
+		// Output the questions form.
 		?>
 		<div id="quiz-questions-container">
 			<?php foreach ( $questions as $index => $question ) : ?>
@@ -272,29 +272,29 @@ class Quiz_Post_Type {
 	 * @param WP_Post $post    The post object.
 	 */
 	public function save_post_meta( $post_id, $post ) {
-		// Check if our nonce is set
+		// Check if our nonce is set.
 		if ( ! isset( $_POST['quiz_questions_meta_box_nonce'] ) ) {
 			return;
 		}
 
-		// Verify that the nonce is valid
+		// Verify that the nonce is valid.
 		if ( ! wp_verify_nonce( $_POST['quiz_questions_meta_box_nonce'], 'quiz_questions_meta_box' ) ) {
 			return;
 		}
 
-		// If this is an autosave, our form has not been submitted, so we don't want to do anything
+		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
 
-		// Check the user's permissions
+		// Check the user's permissions.
 		if ( 'quiz' === $_POST['post_type'] ) {
 			if ( ! current_user_can( 'edit_post', $post_id ) ) {
 				return;
 			}
 		}
 
-		// Save the quiz questions
+		// Save the quiz questions.
 		if ( isset( $_POST['quiz_questions'] ) ) {
 			$questions = array();
 

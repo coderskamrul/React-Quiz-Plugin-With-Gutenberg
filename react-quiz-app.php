@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: React Quiz App Dev
+ * Plugin Name: React Quiz App
  * Plugin URI: https://example.com/react-quiz-app
  * Description: A WordPress plugin that allows admins to create multiple-choice quizzes and embed them using a Gutenberg block.
  * Version: 1.0.0
@@ -71,6 +71,9 @@ add_action( 'plugins_loaded', 'react_quiz_app_init' );
  * Register activation hook
  */
 register_activation_hook( __FILE__, 'react_quiz_app_activate' );
+/**
+ * Activation function
+ */
 function react_quiz_app_activate() {
 	require_once REACT_QUIZ_APP_PLUGIN_DIR . 'includes/class-react-quiz-app-install.php';
 	React_Quiz_App_Install::activate();
@@ -80,6 +83,9 @@ function react_quiz_app_activate() {
  * Register deactivation hook
  */
 register_deactivation_hook( __FILE__, 'react_quiz_app_deactivate' );
+/**
+ * Deactivation function
+ */
 function react_quiz_app_deactivate() {
 	// Flush rewrite rules on deactivation.
 	flush_rewrite_rules();

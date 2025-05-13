@@ -1,5 +1,3 @@
-// "use client"
-
 import { useState } from "react"
 import { __ } from "@wordpress/i18n"
 

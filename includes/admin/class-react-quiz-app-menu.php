@@ -62,7 +62,10 @@ class React_Quiz_App_Menu {
 	}
 
 	/**
-	 * Enqueue admin scripts
+	 * Enqueue admin scripts.
+	 *
+	 * @param string $hook The current admin page.
+	 * @return void
 	 */
 	public function enqueue_admin_scripts( $hook ) {
 		// Only load on plugin pages
@@ -70,7 +73,7 @@ class React_Quiz_App_Menu {
 			return;
 		}
 
-		// Enqueue admin scripts
+		// Enqueue admin scripts.
 		wp_enqueue_script(
 			'react-quiz-app-admin',
 			REACT_QUIZ_APP_PLUGIN_URL . 'assets/js/backend/quiz-admin.js',
@@ -79,7 +82,7 @@ class React_Quiz_App_Menu {
 			true
 		);
 
-		// Localize script
+		// Localize script.
 		wp_localize_script(
 			'react-quiz-app-admin',
 			'reactQuizAppAdmin',
@@ -90,7 +93,7 @@ class React_Quiz_App_Menu {
 			)
 		);
 
-		// Enqueue admin styles
+		// Enqueue admin styles.
 		wp_enqueue_style(
 			'react-quiz-app-admin',
 			REACT_QUIZ_APP_PLUGIN_URL . 'assets/css/admin.css',
