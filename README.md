@@ -1,10 +1,10 @@
-# React Quiz App
+# React Quiz Plugin with Gutenberg
 
 A WordPress plugin that allows admins to create multiple-choice quizzes and embed them using a Gutenberg block.
 
 ## Description
 
-React Quiz App is a powerful WordPress plugin that enables you to create interactive multiple-choice quizzes for your website. Built with React and integrated with the WordPress Gutenberg editor, this plugin provides a seamless experience for both administrators and users.
+React Quiz Plugin with Gutenberg is a powerful WordPress plugin that enables you to create interactive multiple-choice quizzes for your website. Built with React and integrated with the WordPress Gutenberg editor, this plugin provides a seamless experience for both administrators and users.
 
 ### Key Features
 
@@ -17,7 +17,7 @@ React Quiz App is a powerful WordPress plugin that enables you to create interac
 
 ## Installation
 
-1. Upload the `react-quiz-app` folder to the `/wp-content/plugins/` directory
+1. Upload the `react-quiz-plugin-with-gutenberg` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to 'Quizzes' in the WordPress admin menu to start creating quizzes
 
@@ -26,6 +26,49 @@ React Quiz App is a powerful WordPress plugin that enables you to create interac
 - WordPress 5.0 or higher
 - PHP 7.0 or higher
 - Modern browser with JavaScript enabled
+
+Prerequisites
+
+Node.js and npm installed
+WordPress installation
+Visual Studio Code (or preferred code editor)
+Git installed
+
+Setup and Running in Development Mode
+Follow these steps to set up and run the plugin in development mode:
+
+Clone the Repository
+git clone https://github.com/coderskamrul/React-Quiz-Plugin-With-Gutenberg.git
+
+Navigate to the Plugin Directory
+
+Open your file explorer or terminal.
+Go to the cloned repository folder (React-Quiz-Plugin-With-Gutenberg).
+Ensure you are inside the plugin folder before proceeding.
+
+
+Install Dependencies
+
+Open a terminal in Visual Studio Code (VS Code):
+Open VS Code.
+Go to File > Open Folder and select the React-Quiz-Plugin-With-Gutenberg folder.
+Open the terminal in VS Code (Terminal > New Terminal).
+
+Run the following command to install the required dependencies:npm install
+
+Note: If you encounter issues with npm install, ensure you are in the correct plugin folder path in the terminal.
+
+Start Development Mode
+
+In the same VS Code terminal (ensuring the path is the plugin folder), run:npm start
+
+This will start the development server, and you can preview the plugin in your WordPress Gutenberg editor.
+
+Build for Production
+
+To create a production-ready build of the plugin, run:npm run build
+
+The build files will be generated, ready for deployment in your WordPress plugin directory.
 
 ## Usage
 
@@ -93,28 +136,6 @@ The plugin provides several ways to customize the appearance and behavior of qui
 - **CSS Customization**: Add custom CSS to your theme to style the quiz elements
 - **Translation**: The plugin is translation-ready with all text strings properly localized
 
-## Frequently Asked Questions
-
-### How many questions can I add to a quiz?
-
-There is no limit to the number of questions you can add to a quiz.
-
-### Can users see their previous quiz attempts?
-
-Currently, the plugin shows users their most recent attempt only. Future versions may include a history feature.
-
-### Is the plugin compatible with page builders?
-
-Yes, you can use the shortcode to embed quizzes in most page builders.
-
-### Can I export quiz results?
-
-Currently, quiz results are stored in the database but cannot be exported. This feature may be added in future updates.
-
-### How can I report issues or request features?
-
-Please submit issues or feature requests through our GitHub repository or support forum.
-
 ## Troubleshooting
 
 ### The quiz doesn't appear on my page
@@ -140,10 +161,6 @@ If you see database errors:
 2. Check your database permissions
 3. Contact your hosting provider if database issues persist
 
-## Changelog
-
-### 1.0.0
-- Initial release
 
 ## Credits
 
@@ -151,6 +168,26 @@ If you see database errors:
 - Uses WordPress REST API
 - Gutenberg integration for block editor
 
-## License
+# My Cool Project
 
-This plugin is licensed under the GPL v2 or later.
+[![Plugin Download Here](https://img.shields.io/badge/Download-ZIP-blue?style=for-the-badge)](https://drive.google.com/uc?export=download&id=1yVAUHkzLsjb-Tw4hrtPOz3o1PZBaxwpu)
+
+## 📸 Screenshots
+
+### Custom Quiz Post Type
+![Github Banner](https://raw.githubusercontent.com/coderskamrul/assets/refs/heads/main/Custom%20Quiz%20Post.jpg)
+
+### Simple Quiz Dashboard
+![Github Banner](https://raw.githubusercontent.com/coderskamrul/assets/refs/heads/main/Dashboard.jpg)
+
+### Gutenberg Quiz Block With Back-End Preview
+![Github Banner](https://raw.githubusercontent.com/coderskamrul/assets/refs/heads/main/Block%20With%20Preview.jpg)
+
+### Create Multiple Quiz List
+![Github Banner](https://raw.githubusercontent.com/coderskamrul/assets/refs/heads/main/Quiz%20Generator.jpg)
+
+### Front-End Quiz Preview
+![Github Banner](https://raw.githubusercontent.com/coderskamrul/assets/refs/heads/main/Quiz%20Before%20Submit.jpg)
+
+### Quiz Result Show Score
+![Github Banner](https://raw.githubusercontent.com/coderskamrul/assets/refs/heads/main/Quiz%20Result.jpg)
