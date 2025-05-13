@@ -4,6 +4,8 @@ A WordPress plugin that allows admins to create multiple-choice quizzes and embe
 
 ## Ready Plugin Download
 
+Upload plugin > Install > Activate 
+
 [![Plugin Download Here](https://img.shields.io/badge/Download-ZIP-blue?style=for-the-badge)](https://drive.google.com/uc?export=download&id=1yVAUHkzLsjb-Tw4hrtPOz3o1PZBaxwpu)
 
 ## Description
