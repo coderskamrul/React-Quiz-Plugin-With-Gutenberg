@@ -2,6 +2,10 @@
 
 A WordPress plugin that allows admins to create multiple-choice quizzes and embed them using a Gutenberg block.
 
+## Ready Plugin Download
+
+[![Plugin Download Here](https://img.shields.io/badge/Download-ZIP-blue?style=for-the-badge)](https://drive.google.com/uc?export=download&id=1yVAUHkzLsjb-Tw4hrtPOz3o1PZBaxwpu)
+
 ## Description
 
 React Quiz Plugin with Gutenberg is a powerful WordPress plugin that enables you to create interactive multiple-choice quizzes for your website. Built with React and integrated with the WordPress Gutenberg editor, this plugin provides a seamless experience for both administrators and users.
@@ -21,52 +25,67 @@ React Quiz Plugin with Gutenberg is a powerful WordPress plugin that enables you
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to 'Quizzes' in the WordPress admin menu to start creating quizzes
 
-## Requirements
+## 📋 Requirements
 
 - WordPress 5.0 or higher
 - PHP 7.0 or higher
 - Modern browser with JavaScript enabled
 
-Prerequisites
+## 🔧 Prerequisites
 
-Node.js and npm installed
-WordPress installation
-Visual Studio Code (or preferred code editor)
-Git installed
+- [Node.js and npm](https://nodejs.org/) installed
+- WordPress installation
+- [Visual Studio Code](https://code.visualstudio.com/) (or preferred code editor)
+- [Git](https://git-scm.com/) installed
 
-Setup and Running in Development Mode
+## 🚀 Setup and Running in Development Mode
+
 Follow these steps to set up and run the plugin in development mode:
 
-Clone the Repository
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/coderskamrul/React-Quiz-Plugin-With-Gutenberg.git
+```
 
-Navigate to the Plugin Directory
+### 2. Navigate to the Plugin Directory
 
-Open your file explorer or terminal.
-Go to the cloned repository folder (React-Quiz-Plugin-With-Gutenberg).
-Ensure you are inside the plugin folder before proceeding.
+- Open your file explorer or terminal
+- Go to the cloned repository folder (`React-Quiz-Plugin-With-Gutenberg`)
+- Ensure you are inside the plugin folder before proceeding
 
+### 3. Install Dependencies
 
-Install Dependencies
+Open a terminal in Visual Studio Code:
+1. Open VS Code
+2. Go to `File > Open Folder` and select the `React-Quiz-Plugin-With-Gutenberg` folder
+3. Open the terminal in VS Code (`Terminal > New Terminal`)
 
-Open a terminal in Visual Studio Code (VS Code):
-Open VS Code.
-Go to File > Open Folder and select the React-Quiz-Plugin-With-Gutenberg folder.
-Open the terminal in VS Code (Terminal > New Terminal).
+Run the following command to install the required dependencies:
 
-Run the following command to install the required dependencies:npm install
+```bash
+npm install
+```
 
-Note: If you encounter issues with npm install, ensure you are in the correct plugin folder path in the terminal.
+> **Note:** If you encounter issues with `npm install`, ensure you are in the correct plugin folder path in the terminal.
 
-Start Development Mode
+### 4. Start Development Mode
 
-In the same VS Code terminal (ensuring the path is the plugin folder), run:npm start
+In the same VS Code terminal (ensuring the path is the plugin folder), run:
+
+```bash
+npm start
+```
 
 This will start the development server, and you can preview the plugin in your WordPress Gutenberg editor.
 
-Build for Production
+### 5. Build for Production
 
-To create a production-ready build of the plugin, run:npm run build
+To create a production-ready build of the plugin, run:
+
+```bash
+npm run build
+```
 
 The build files will be generated, ready for deployment in your WordPress plugin directory.
 
@@ -168,7 +187,7 @@ If you see database errors:
 - Uses WordPress REST API
 - Gutenberg integration for block editor
 
-# My Cool Project
+## Ready Plugin Download Link
 
 [![Plugin Download Here](https://img.shields.io/badge/Download-ZIP-blue?style=for-the-badge)](https://drive.google.com/uc?export=download&id=1yVAUHkzLsjb-Tw4hrtPOz3o1PZBaxwpu)
 
